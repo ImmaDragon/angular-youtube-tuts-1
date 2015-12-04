@@ -4,10 +4,18 @@ if (Meteor.isClient) {
   angular.module('socially', ['angular-meteor']);
 
   angular.module('socially').controller('PartiesListCtrl', ['$scope', '$meteor',
-    function ($scope) {
+    function ($scope, $meteor) {
         $scope.parties = $meteor.collection(Parties);
   }]);
 }
+
+
+// This line declares a new $scope.parties variable
+// (so we don't need to do something like $scope.parties = []; )
+// and then binds it to the Parties Mongo collection.
+
+
+
 
 if (Meteor.isServer) {
   Meteor.startup(function () {
