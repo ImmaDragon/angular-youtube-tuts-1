@@ -1,34 +1,3 @@
-Parties = new Mongo.Collection("parties");
-
 if (Meteor.isClient) {
-  angular.module('socially', ['angular-meteor']);
-
-//Now every change that happens to the $scope.parties variable will
-//automatically be saved to the local minimongo and synced to the MongoDB
-//server DB and all the other clients in realtime!
-  angular.module('socially').controller('PartiesListCtrl',function ($scope, $meteor) {
-    $scope.parties = $meteor.collection(Parties);
-
-    $scope.remove = function(party){
-      $scope.parties.splice($scope.parties.indexOf(party),1);
-    };
-  });
-}
-
-
-if (Meteor.isServer) {
-  Meteor.startup(function () {
-    if (Parties.find().count() === 0) {
-      var parties = [
-        {'name': 'Dubstep-Free Zone',
-          'description': 'Fast just got faster with Nexus S.'},
-        {'name': 'All dubstep all the time',
-          'description': 'Get it on!'},
-        {'name': 'Savage lounging',
-          'description': 'Leisure suit required. And only fiercest manners.'}
-      ];
-      for (var i = 0; i < parties.length; i++)
-        Parties.insert(parties[i]);
-    }
-  });
+    angular.module('socially', ['angular-meteor']);
 }
