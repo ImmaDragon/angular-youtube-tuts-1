@@ -3,8 +3,15 @@ Parties = new Mongo.Collection("parties");
 if (Meteor.isClient) {
   angular.module('socially', ['angular-meteor']);
 
-  angular.module('socially').controller('PartiesListCtrl',function ($scope) {
+//Now every change that happens to the $scope.parties variable will
+//automatically be saved to the local minimongo and synced to the MongoDB
+//server DB and all the other clients in realtime!
+  angular.module('socially').controller('PartiesListCtrl',function ($scope, $meteor) {
     $scope.parties = $meteor.collection(Parties);
+
+    $scope.remove = function(party){
+      $scope.parties.splice($scope.parties.indexOf(party),1);
+    };
   });
 }
 
