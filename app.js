@@ -3,6 +3,25 @@ Parties = new Mongo.Collection("parties");
 if (Meteor.isClient) {
   angular.module('socially', ['angular-meteor']);
 
+   angular.module('socially').config(function($urlRouterProvider, $stateProvider, $locationProvider){
+
+      $locationProvider.html5Mode(true);
+
+      $stateProvider
+        .state('parties', {
+          url: '/parties',
+          templateUrl: 'parties-list.html',
+          controller: 'PartiesListCtrl'
+        })
+        .state('partyDetails', {
+          url: '/parties/:partyId',
+          templateUrl: 'party-details.html',
+          controller: 'PartyDetailsCtrl'
+        });
+
+      $urlRouterProvider.otherwise("/parties");
+    });
+
   angular.module('socially').controller('PartiesListCtrl', ['$scope', '$meteor',
     function ($scope, $meteor) {
         $scope.parties = $meteor.collection(Parties, false);
